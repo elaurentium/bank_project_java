@@ -1,32 +1,34 @@
 package co.ordnave.bank;
 
+import java.util.Scanner;
+
 public class App {
 
     public static void main(String[] args) {
 
-        Account account = new Account(ag: "0001", cc: "1234", name:"user")
+        Scanner scanner = new Scanner(System.in);
+        Account account = new Account(ag: "0001", cc: "1234", name:"user");
 
-        boolean succeed = account.withdraw(value: 200.0);
+        while(true) {
+            System.out.println("D= Deposit, W= Withdraw, E=Exit");
+            String op = scanner.nextLine();
 
-        if (!succeed) {
-            System.out.println("insufficient funds ");
-        } else {
-            System.out.println("Withdraw complete!");
+            if (op.equals("D")) {
+                System.out.println("How many you'll deposit ?");
+                double value = scanner.nextDouble();
+                account.deposit(value);
+            } else if (op.equals("W")) {
+                System.out.println("How many you want to Withdraw ?");
+                double value = scanner.nextDouble();
+                if (!account.withdraw(value)) {
+                    System.out.println("Insuficient balance! Your balance is $" + value);
+                }
+            } else if (op.equals("E")) {
+                break;
+            } else {
+                System.out.println("Command invalid");
+            }
+            scanner = new Scanner(System.in);
         }
-
-        account.deposit(value: 100);
-        account.deposit(value: 50);
-        account.deposit(value: 100);
-
-        if (!account.withdraw(value: 200)) {
-            System.out.println("insufficient funds");
-        }
-
-        if (!account.withdraw(value: 200)) {
-            System.out.println("insufficient funds");
-        }
-
-
-
     }
 }
